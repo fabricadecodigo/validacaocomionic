@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/validacao.ctrl.js"></script>
+    <script src="js/telefone.directive.js"></script>
+  </head>
+  <body ng-app="app" ng-controller="ValidacaoCtrl">
+    <ion-pane>
+      <ion-header-bar class="bar-stable">
+        <h1 class="title">Contato</h1>
+      </ion-header-bar>
+      <ion-content class="padding">
+        <form class="list" name="contato" ng-submit="onSubmit()" novalidate>
+            <label class="item item-input item-stacked-label" ng-class="{ 'input-error' : contato.nome.$invalid && !contato.nome.$pristine }">
+                <span class="input-label">Nome</span>
+                <input type="text" name="nome" ng-model="model.nome" minlength="2" required>
+                <span class="error" ng-show="contato.nome.$error.required && !contato.nome.$pristine">Nome é obrigatório</span>
+                <span class="error" ng-show="contato.nome.$error.minlength && !contato.nome.$pristine">No mínimo 2 caracteres</span>
+            </label>
+            
+            <label class="item item-input item-stacked-label" ng-class="{ 'input-error' : contato.email.$invalid && !contato.email.$pristine }">
+                <span class="input-label">E-mail</span>
+                <input type="email" name="email" ng-model="model.email" required>
+                <span class="error" ng-show="contato.email.$error.required && !contato.email.$pristine">E-mail é obrigatório</span>
+                <span class="error" ng-show="contato.email.$error.email && !contato.email.$pristine">E-mail inválido</span>
+            </label>
+
+            <label class="item item-input item-stacked-label" ng-class="{ 'input-error' : contato.tel.$invalid && !contato.tel.$pristine }">
+                <span class="input-label">Telefone</span>
+                <input type="tel" name="tel" ng-model="model.tel" required telefone />
+                <span class="error" ng-show="contato.tel.$error.required && !contato.tel.$pristine">Telefone é obrigatório</span>                
+                <span class="error" ng-show="contato.tel.$error.telefone && !contato.tel.$pristine">Telefone inválido</span>                
+            </label>
+
+            <label class="item item-input item-stacked-label" ng-class="{ 'input-error' : contato.altura.$invalid && !contato.altura.$pristine }">
+                <span class="input-label">Altura</span>
+                <input type="number" name="altura" ng-model="model.altura" required min="1">
+                <span class="error" ng-show="contato.altura.$error.required && !contato.altura.$pristine">Altura é obrigatório</span>
+                <span class="error" ng-show="contato.altura.$error.min && !contato.altura.$pristine">No mínimo 1</span>
+            </label>
+
+            <label class="item item-input item-stacked-label" ng-class="{ 'input-error': contato.dtnascimento.$invalid && !contato.dtnascimento.$pristine }">
+                <span class="input-label">Nascimento</span>
+                <input type="date" name="dtnascimento" ng-model="model.dtNascimento" required>
+                <span class="error" ng-show="contato.dtnascimento.$error.required && !contato.dtnascimento.$pristine">Nascimento é obrigatório</span>
+                <span class="error" ng-show="contato.dtnascimento.$error.date && !contato.dtnascimento.$pristine">Data inválida</span>
+            </label>
+                
+            <button class="button button-positive button-block" type="submit" ng-disabled="contato.$invalid">Salvar</button>
+        </form>
+      </ion-content>
+    </ion-pane>
+  </body>
+</html>

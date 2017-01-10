@@ -1,0 +1,10 @@
+/* Empty. Add your own CSS if you like */
+
+.error {
+    color: red;
+}
+
+.input-error {
+    border-color: red;
+    margin-bottom: 1px;
+}
